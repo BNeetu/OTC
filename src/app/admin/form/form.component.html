@@ -1,0 +1,97 @@
+<p>form works!</p>
+
+
+
+<div class="card mt-5 "
+    style="width: 800px; border-radius: 30px; margin:0px auto; background: linear-gradient(145deg, #fbfbfb, #fdfafa);box-shadow:  5px 5px 18px #8d8d8d,-5px -5px 18px #f7f6f6;">
+    <div>
+        <div>
+            <div>
+
+
+                <div class="col-lg  px-5 mt-3 ">
+                    <h5>Form </h5>
+                    <p class="text-muted">A verification code has been sent to your registered email and mobile number.
+                    
+                    <form [formGroup]="formdata" class="mt-3 mb-3">
+
+                        <div class="OTP-Field">
+                            <!-- <small>Enter Email OTP</small> -->
+
+                            <div class="row ">
+
+                                <div class="col-6">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control text-center fw-bold" formControlName="name"
+                                        id="name">
+                                </div>
+                                <div class="col-6">
+                                    <label for="email" class="form-label">Email</label>
+
+                                    <input type="text" class="form-control text-center fw-bold" formControlName="email"
+                                        id="email">
+                                </div>
+                                <div class="col-6">
+                                    <label for="age" class="form-label">Age</label>
+                                    <input type="text" class="form-control text-center fw-bold" formControlName="age"
+                                        id="age">
+                                </div>
+                        
+                                
+                                
+                                <div class="col-6">
+                                    <label for="language" class="form-label">Language</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" formControlName="language1" type="checkbox" value="python" id="pythonCheckbox">
+                                        <label class="form-check-label" for="pythonCheckbox">Python</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" formControlName="language2" value="cpp" id="cppCheckbox">
+                                        <label class="form-check-label" for="cppCheckbox">C++</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" formControlName="language3" type="checkbox" value="java" id="javaCheckbox">
+                                        <label class="form-check-label" for="javaCheckbox">Java</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" formControlName="language4" type="checkbox" value="css" id="cssCheckbox">
+                                        <label class="form-check-label" for="cssCheckbox">CSS</label>
+                                    </div>
+                                    <!-- <div class="form-check">
+                                        <input class="form-check-input" formControlName="language5" type="checkbox" value="javascript" id="javascriptCheckbox">
+                                        <label class="form-check-label" for="javascriptCheckbox">JavaScript</label>
+                                    </div> -->
+                                </div>
+                                
+                                <div class="col-6">
+                                    <label for="dob" class="form-label">DOB</label>
+
+                                    <input type="date" class="form-control text-center fw-bold" formControlName="dob"
+                                        id="dob">
+                                </div>
+                                <div class="col-6">
+                                    <label for="profilePic" class="form-label">resume</label>
+
+                                    <input type="file" class="form-control text-center fw-bold" formControlName="resume" (change)="onFileSelected($event)" id="resume">
+                                        
+                                </div>
+                                <div class="col-6">
+                                    <label for="password" class="form-label">password</label>
+
+                                    <input type="password" class="form-control text-center fw-bold" formControlName="password"
+                                        id="password" >
+
+                                </div>
+                                <div class="col-6">
+                                    <label for="cpassword" class="form-label">Confirm password</label>
+
+                                    <input type="password" class="form-control text-center fw-bold" formControlName="cpassword"
+                                        id="cpassword"  >
+                                </div>
+                                <div class="col-12 mt-3 text-center">
+                                    <button type="button" class="btn btn-primary" (click)="onSubmit()">Submit Form</button>                            
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </form>

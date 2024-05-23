@@ -1,0 +1,229 @@
+<router-outlet></router-outlet>
+
+
+<style>
+    .modal-content .otp-modal {
+        width: 200;
+    }
+</style>
+
+<div  *ngIf="!showOTPForm">
+    <div class="p-3">
+        <div class="row ">upProfileImg
+            <h3 class="">My Profile</h3>
+            <hr>
+            <div class="col-9" >
+
+                <div class="row" style="position: relative;" >
+                    <div class="col-3 d-flex" >
+                        <label for="profile-pic-input">
+                            <img src={{profile_pic}} style="border-radius: 100%; border:2px solid rgb(207, 23, 23);"
+                                height="150px" class="" alt="..." />
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                style="height: 30px; position:absolute; bottom:19%; left:12%; color:rgb(178, 173, 173);"
+                                fill="currentColor" class="bi bi-camera-fill" viewBox="0 0 16 16">
+                                <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                                <path
+                                    d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0" />
+                            </svg>
+                        </label>
+                        <input id="profile-pic-input" type="file" (change)="($event)" style="display: none;">
+
+                    </div>
+                    <div class="col-4 mt-3" *ngIf="!showOTPForm">
+                        <div>
+                            <h3>{{profileData.name}}</h3>
+                        </div>
+                        <div class="d-flex">
+                            <h6 style="color:blue;">sharajman | &nbsp;</h6>
+                            <h6>Last login:01 Apr,2024 11:47:25 AM</h6>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex mt-5">
+                    <div (click)="toggleContent('overview')" style="cursor: pointer;">
+                        <h2 class="me-3" [style.color]="showOverview ? 'blue' : 'black'">Overview</h2>
+                    </div>
+                    <div style="margin-left: 40px;" (click)="toggleContent('twoFactor')" style="cursor: pointer;">
+                        <h2 [style.color]="showTwoFactor ? 'blue' : 'black'">Two Factor Authentication</h2>
+                    </div>
+                </div>
+
+
+                <div style="border-bottom:3px solid rgb(30, 54, 211); "></div>
+
+
+                <div style="margin-left: 40px;" *ngIf="showTwoFactor">
+                    <h5 class="mt-3">Two Factor Authentication</h5>
+                    <button class="btn btn-primary me-3">INACTIVE</button>
+                    <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#AddModal"
+                        data-bs-whatever="@mdo">TOTP</button>
+                    <button class="btn btn-secondary ">OTP</button>
+                </div>
+
+
+
+
+
+                <div class="modal fade" id="AddModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content otp-modal">
+                            <div class="modal-header ">
+
+                                <div class="head-emp">
+                                    <h3 class="emp-head">Please confirm</h3>
+                                </div>
+
+                            </div>
+                            <div class="modal-body">
+                                <h6>Do you really want to switch from INACTIVE to TOTP?</h6>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal"
+                                    data-bs-target="#OTPMODAL" data-bs-whatever="@mdo"  (click)="handleYesClick()">Yes</button>
+                                <button type="submit" class="btn btn-secondary" >No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+
+                <div class="row" *ngIf="showOverview">
+                    <div class="col-8 mt-5 p-2" style="background-color: rgb(187, 211, 246); height:auto;">
+                        <h3>Basic Details</h3>
+                        <label for="name">Name</label>
+                        <div>{{profileData.name}}</div>
+                        <hr>
+                        <label for="email" class="form-label">Email</label>
+                        <div>{{profileData.email}}</div>
+
+                        <hr>
+                        <label for="number" class="form-label">Mobile No.</label>
+                        <div>{{profileData.mobile}}</div>
+
+                        <hr>
+                        <label for="org" class="form-label">Organization</label>
+                        <div>{{profileData.email}}</div>
+
+                        <hr>
+                        <label for="user_type" class="form-label">User Type</label>
+                        <div>{{profileData.user_type}}</div>
+                        <hr>
+                    </div>
+                    <div class="col-4">
+                        <img src="./assets/PM.jpeg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg bg-light" style="border-radius:10px; height: 120px;">
+                <h4>Your Recent Activities</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-5 " style="width: 800px; border-radius: 30px; margin:0px auto; background: linear-gradient(145deg, #fbfbfb, #fdfafa);box-shadow:  5px 5px 18px #8d8d8d,-5px -5px 18px #f7f6f6;"  *ngIf="showOTPForm">
+    <div >
+        <div >
+            <div >
+
+  
+                <div class="col-lg  px-5 mt-3 " >
+                    <h3>OTP Verification To Change Two Factor Authentication</h3>
+                    <p class="text-muted">A verification code has been sent to your registered email and mobile number.</p>
+                    <form [formGroup]="otpVerifyform" class="mt-3 mb-3">
+                       
+                        <div class="OTP-Field">
+                            <small>Enter Email OTP</small>
+    
+                            <div class="row ">
+    
+                                <div class="col-2">
+                                    <input type="text" class="form-control text-center fw-bold" formControlName="otp1"  id="txt1" maxlength="1"
+                                        placeholder="-">
+                
+                                </div>
+                                <div class="col-2">
+                                    <input type="text" class="form-control text-center fw-bold" formControlName="otp2" id="txt2" maxlength="1"
+                                        placeholder="-">
+                 
+                                </div>
+                                <div class="col-2">
+                                    <input type="text" class="form-control text-center fw-bold" formControlName="otp3" id="txt3" maxlength="1"
+                                        placeholder="-">
+                
+                                </div>
+                                <div class="col-2">
+                                    <input type="text" class="form-control text-center fw-bold" formControlName="otp4" id="txt4" maxlength="1"
+                                        placeholder="-">
+                     
+                                </div>
+                                <div class="col-2">
+                                    <input type="text" class="form-control text-center fw-bold" formControlName="otp5" id="txt5" maxlength="1"
+                                        placeholder="-">
+                                   
+               
+                                </div>
+                                <div class="col-2">
+                                    <input type="text" class="form-control text-center fw-bold" formControlName="otp6" id="txt6" maxlength="1"
+                                        placeholder="-">
+                    
+                                </div>
+    
+                            </div>
+                        </div>
+                        <div class="OTP-Field mt-3">
+                            <small>Enter Mobile OTP</small>
+    
+                            <div class="row ">
+    
+                                <div class="col-2">
+                                    <input type="text" class="form-control text-center fw-bold" id="txt1" formControlName="otp7" maxlength="1"
+                                        placeholder="-">
+                            
+                                </div>
+                                <div class="col-2">
+                                    <input type="text" class="form-control text-center fw-bold" id="txt2"  formControlName="otp8" maxlength="1"
+                                        placeholder="-">
+                                       
+                                </div>
+                                <div class="col-2">
+                                    <input type="text" class="form-control text-center fw-bold" id="txt3"  formControlName="otp9" maxlength="1"
+                                        placeholder="-">
+                                     
+                                </div>
+                                <div class="col-2">
+                                    <input type="text" class="form-control text-center fw-bold" id="txt4"  formControlName="otp10" maxlength="1"
+                                        placeholder="-">
+                                     
+                                </div>
+                                <div class="col-2">
+                                    <input type="text" class="form-control text-center fw-bold" id="txt5"  formControlName="otp11" maxlength="1"
+                                        placeholder="-">
+               
+                                </div>
+                                <div class="col-2">
+                                    <input type="text" class="form-control text-center fw-bold"  id="txt6"  formControlName="otp12" maxlength="1"
+                                        placeholder="-">
+                       
+                                </div>
+    
+                            </div>
+                        </div>
+               
+                    </form>
+
+                </div>
+
+            </div>
+            <div class="text-center mb-3 ">
+                <button type="button" class="btn btn-primary me-3 " data-bs-toggle="modal"
+                    data-bs-target="#AddModal" data-bs-whatever="@mdo" (click)="validateUserData(otpVerifyform.value)">Yes</button>
+                <button type="submit" class="btn btn-secondary">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,165 @@
+<style>
+  .modal-content {
+    width: 150%;
+  }
+</style>
+
+<nav>
+  <div class="col-9 d-flex mt-3 mb-3">
+    <button class="btn btn-primary" style="width: 12%">Master Control</button>
+    <input #searchUserData type="search" style="margin-left: 10px; width: 15%" class="form-control" aria-label="search"
+      placeholder="Search Here" />
+    <button class="btn btn-warning" style="margin-left: 10px" type="submit"
+      (click)="empProfileData(searchUserData.value)">
+      Search
+    </button>
+    <button class="btn btn-primary" style="margin-left: 10px" type="reset">
+      Reset
+    </button>
+    <div class="col-6 text-end">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddModal"
+        data-bs-whatever="@mdo">
+        More Filter
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel-fill"
+          viewBox="0 0 16 16">
+          <path
+            d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5z" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MODAL -->
+
+<div class="modal fade" id="AddModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <form [formGroup]="userForm"  class="row">
+          <div class="head-emp col-6 d-flex mt-1 mb-2" style="width: 700px">
+            <h3 class="emp-head">Filter</h3>
+            <button type="button" class="btn-close cls-btn text-end" data-bs-dismiss="modal"
+              aria-label="Close"></button>
+          </div>
+          <div class="mt-2 mb-2" style="border-bottom: 3px solid rgb(10, 10, 12)"></div>
+          
+          <div class="col-12 mt-3 mb-3">
+            <div class="row">
+              <div class="col">
+                <label for="exampleInputEmail1" class="form-label">Form Date</label>
+                <input type="date" class="form-control" formControlName="from_date" />
+              </div>
+              <div class="col">
+                <label for="exampleInputEmail2" class="form-label">To Date</label>
+                <input type="date" class="form-control" formControlName="to_date" />
+              </div>
+              <div class="col">
+                <label for="floatingSelect">Kyc Status</label>
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
+                  formControlName="kyc_status">
+                  <option selected>Kyc Status</option>
+                  <option value="true">True</option>
+                  <option value="false">False</option>
+                </select>
+              </div>
+            </div>
+
+
+
+            <div class="row mt-3">        
+              <div class="col-md-4">
+                <div class="form-floating">
+                  <select #type id="inputState" class="form-select" formControlName="user_type"
+                    (click)="subMember(type.value)">
+                    <option selected>Select User Type</option>
+                    <option value="{{ member.id }}" *ngFor="let member of filterData">{{ member.type }}                 </option>
+                  </select>
+                  <label for="floatingInput">User Type</label>
+                </div>
+              </div>
+
+
+
+              <div class="col">
+                <label for="floatingSelect">Sub User Type</label>
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
+                  formControlName="sub_user_type">
+                  <option selected>Sub User Type</option>
+                  <ng-container *ngIf="selectedMemberType == '3'">
+                    <option value="{{ subMember.type }}" *ngFor="let subMember of filterSubData">
+                      {{ subMember.name }}
+                    </option>
+                  </ng-container>                 
+                </select>
+              </div>
+
+
+
+              <div class="col">
+                <label for="floatingSelect">Subscription Plan</label>
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
+                  formControlName="subscription_id">
+                  <option selected>Kyc Status</option>
+                  <option value="true">True</option>
+                  <option value="false">False</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="text-center">
+            <button class="btn btn-primary"  (click)="memberData()">Search Records</button>
+            <button class="btn btn-secondary" style="border: none; margin-left: 10px">
+              Close
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Member type</th>
+      <th scope="col">Sub Member type</th>
+      <th scope="col">Active User count</th>
+      <th scope="col">KYc Status</th>
+      <th scope="col">Subscription Plan</th>
+      <th scope="col">Ls Pending Count</th>
+      <th scope="col">Last Log User</th>
+      <th scope="col">Last Log Date and Time</th>
+      <th scope="col">Active Clients</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+
+
+  <tbody>
+    <tr *ngFor="
+        let member of userData | paginate : { itemsPerPage:itemPerPage, currentPage: page,totalItems: totalItems};let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ member.sno }}</td>
+      <td>{{ member.orgname }}</td>
+      <td>{{ member.signup_at }}</td>
+      <td>{{ member.register_at }}</td>
+      <td>{{ member.usertype }}</td>
+      <td>{{ member.subusertype }}</td>
+      <td>{{ member.staff_count }}</td>
+      <td>{{ member.subscription }}</td>
+      <td>{{ member.pending_client }}</td>
+      <td>{{ member.last_log_user }}</td>
+      <td>{{ member.last_log_timestamp }}</td>
+      <td>{{ member.approved_client }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="d-flex justify-content-end">
+  <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
+</div>
